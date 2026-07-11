@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Calculator</title>
+
+    <style>
+        body {
+            background: black;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+
+
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        button {
+            background: #2a5298;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1e3c72;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Calculator</h1>
+    <input type="number" id="num1" placeholder="Enter first number">
+    <input type="number" id="num2" placeholder="Enter second number">
+
+
+    <button onclick="Calculate()">Find Sum</button>
+    <button onclick="Calculate1()">Find Square</button><br><br>
+    <button onclick="Calculate2()">Find power</button>
+    <button onclick="Calculate3()">Find log</button><br><br>
+    <button onclick="Calculate4()">Find tan </button>
+    <button onclick="Calculate5()">Find sin</button><br><br>
+    <button onclick="Calculate6()">Find cos</button>
+    <button onclick="Calculate7()">Find abs</button><br><br>
+    <button onclick="Calculate8()">spiral</button><br><br>
+
+
+    <p id="result"></p>
+</div>
+
+<script>
+    async function Calculate() {
+        let n1 = document.getElementById("num1").value;
+        let n2 = document.getElementById("num2").value;
+
+        let response = await fetch(`http://localhost:8080/calc/add/${n1}/${n2}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate1() {
+        let n1 = document.getElementById("num1").value;
+
+
+        let response = await fetch(`http://localhost:8080/calc/square/${n1}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =   text;
+    }
+    async function Calculate2() {
+        let n1 = document.getElementById("num1").value;
+        let n2 = document.getElementById("num2").value;
+
+
+        let response = await fetch(`http://localhost:8080/calc/power/${n1}/${n2}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate3() {
+        let n1 = document.getElementById("num1").value;
+
+
+        let response = await fetch(`http://localhost:8080/calc/log/${n1}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate4() {
+        let n1 = document.getElementById("num1").value;
+
+
+        let response = await fetch(`http://localhost:8080/calc/tan/${n1}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate5() {
+        let n1 = document.getElementById("num1").value;
+
+
+        let response = await fetch(`http://localhost:8080/calc/ sin/${n1}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate6() {
+        let n1 = document.getElementById("num1").value;
+        let response = await fetch(`http://localhost:8080/calc/cos/${n1}`);
+        let text = await response.text();
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate7() {
+        let n1 = document.getElementById("num1").value;
+        let response = await fetch(`http://localhost:8080/calc/abs/${n1}`);
+        let text = await response.text();
+
+        document.getElementById("result").innerText =  text;
+    }
+    async function Calculate8() {
+        let response = await fetch(`http://localhost:8080/spiral`);
+        let text = await response.text();
+        document.getElementById("result").innerText =  text;
+    }
+</script>
+
+</body>
+</html>
