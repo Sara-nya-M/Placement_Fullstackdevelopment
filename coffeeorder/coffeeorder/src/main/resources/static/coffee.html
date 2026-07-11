@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coffee Order</title>
+
+    <style>
+        body {
+            background-image : url("bg.jpeg");
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+        .container {
+            background: rgb(152 84 42);
+            padding: 30px;
+            border-radius: 15px;
+            width:350px;
+
+
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc80;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            background: wheat;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: none;
+            background: #ffcc80;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ffa726;
+        }
+
+        li {
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 6px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1> Coffee Order</h1>
+    <h2 align="center">Place to Gossip</h2>
+    <form id="coffeeForm">
+        <input id ="name" placeholder="Name">
+        <input id="type" placeholder="Enter Coffee Type">
+        <button type="submit">Order Coffee</button><br><br>
+    </form>
+    <img src="coffee.jpg" width="60" height="60" />
+    <h2>Orders:</h2>
+    <ol id="orderList"></ol>
+</div>
+
+<script>
+    const form = document.getElementById("coffeeForm");
+    const list = document.getElementById("orderList");
+
+    fetch("http://localhost:8080/coffee")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(c => addCoffee(c));
+        });
+
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const type = document.getElementById("type").value;
+
+        fetch("http://localhost:8080/coffee/" + type, {
+            method: "POST"
+        })
+            .then(response => response.text())
+            .then(msg => {
+                addCoffee(type);
+            });
+
+        form.reset();
+    });
+
+    function addCoffee(coffee){
+        const li = document.createElement("li");
+        li.textContent = coffee;
+        list.appendChild(li);
+    }
+</script>
+
+</body>
+</html>

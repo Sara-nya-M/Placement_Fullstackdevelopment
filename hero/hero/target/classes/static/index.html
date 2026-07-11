@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Hero</title>
+    <h1>Welcome to Heroes website</h1>
+    <button onclick="Cal()">Click me to display</button>
+    <p id="result"></p>
+    <script>
+        async function Cal() {
+            const response = await fetch(`http://localhost:8080/heroes`);
+            const text = await response.text();
+            document.getElementById("result").textContent =  text;
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

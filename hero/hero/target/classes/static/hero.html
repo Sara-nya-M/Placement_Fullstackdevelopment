@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<h1 style="font-family: 'Curlz MT';color: chartreuse">BLASTUU BLASTUUU....!</h1>
+<form id = "heroForm">
+    Name : <input id = "name">
+    Power : <input id = "power">
+    <button type = "submit">Add</button>
+</form>
+<h2 style="color: darkturquoise">Heroes</h2>
+<ol id = "heroList"></ol>
+<script>
+    const form = document.getElementById("heroForm");
+    const list = document.getElementById("heroList");
+
+    fetch("/heroes")
+        .then(response => response.json())
+        .then(data => data.forEach(h => addHero(h)));
+
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const hero = {
+            name: document.getElementById("name").value,
+            power: document.getElementById("power").value
+        };
+
+        fetch("/heroes", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(hero)
+        })
+            .then(response => response.json())
+            .then(h => addHero(h));
+
+        form.reset();
+    });
+
+    function addHero(hero){
+        const li = document.createElement("li");
+        li.textContent = hero.name + " - " + hero.power;
+        list.appendChild(li);
+    }
+</script>
+
+
+</body>
+</html>
