@@ -1,0 +1,13 @@
+package com.example.Studentprofiledemo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class StudentprofiledemoApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
